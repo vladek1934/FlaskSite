@@ -1,2 +1,2 @@
 # FlaskSite1
-A project for the Software Engineering course 
+A Website project (shop). Built with Flask, its modules, sqlite(next upgrade to postgres) and further addition of angular

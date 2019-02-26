@@ -1,5 +1,5 @@
 from flask import render_template, flash, url_for, redirect, request
-from FlaskSite.forms import RegForm, LoginForm
+from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm
 from FlaskSite.models import User, Post
 from FlaskSite import app, database, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
@@ -69,7 +69,19 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html', title='Profile')
+    prof_form = AlterAccountForm()
+    if prof_form.validate_on_submit():
+        current_user.username = prof_form.username.data
+        current_user.email = prof_form.email.data
+        current_user.password = bcrypt.generate_password_hash(prof_form.password.data).decode('utf-8')
+        database.session.commit()
+        flash('The update is successful', 'success')
+        return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        prof_form.username.data = current_user.username
+        prof_form.email.data = current_user.email
+    image = url_for('static', filename='profile_photos/' + current_user.image_file)
+    return render_template('profile.html', title='Profile', image_file=image, form=prof_form)

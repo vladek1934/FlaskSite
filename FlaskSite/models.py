@@ -1,8 +1,12 @@
-from FlaskSite import database
+from FlaskSite import database, login_manager
 from datetime import datetime
+from flask_login import UserMixin
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-class User(database.Model):
+class User(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String(20), unique=True, nullable=False)
     email = database.Column(database.String(60), unique=True, nullable=False)

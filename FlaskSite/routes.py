@@ -1,8 +1,8 @@
-from flask import render_template, flash, url_for, redirect
+from flask import render_template, flash, url_for, redirect, request
 from FlaskSite.forms import RegForm, LoginForm
 from FlaskSite.models import User, Post
 from FlaskSite import app, database, bcrypt
-from flask_login import login_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 posts = [
     {
@@ -33,6 +33,8 @@ def about():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -46,14 +48,28 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.rememberpass.data)
-
+            next_page = request.args.get('next')
             flash('Welcome', 'success')
-            return redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login failed', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', title='Profile')

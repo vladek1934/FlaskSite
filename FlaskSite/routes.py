@@ -3,6 +3,7 @@ from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm
 from FlaskSite.models import User, Post
 from FlaskSite import app, database, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
+import secrets, os
 
 posts = [
     {
@@ -69,14 +70,27 @@ def logout():
     return redirect(url_for('home'))
 
 
+def save_photo(form_photo):
+    random_name = secrets.token_hex(6)
+    f_name, f_ext = os.path.splitext(form_photo.filename)
+    photo_filename = f_name + random_name + f_ext
+    photo_path = os.path.join(app.root_path, 'static/profile_photos', photo_filename)
+    form_photo.save(photo_path)
+    return photo_filename
+
+
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     prof_form = AlterAccountForm()
     if prof_form.validate_on_submit():
+        if prof_form.photo.data:
+            new_photo = save_photo(prof_form.photo.data)
+            current_user.image_file = new_photo
         current_user.username = prof_form.username.data
         current_user.email = prof_form.email.data
-        current_user.password = bcrypt.generate_password_hash(prof_form.password.data).decode('utf-8')
+        if prof_form.password.data:
+            current_user.password = bcrypt.generate_password_hash(prof_form.password.data).decode('utf-8')
         database.session.commit()
         flash('The update is successful', 'success')
         return redirect(url_for('profile'))

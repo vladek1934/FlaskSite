@@ -4,6 +4,7 @@ from FlaskSite.models import User, Post
 from FlaskSite import app, database, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets, os
+from PIL import Image
 
 posts = [
     {
@@ -71,11 +72,14 @@ def logout():
 
 
 def save_photo(form_photo):
+    photo_size = (512,512)
+    resized = Image.open(form_photo)
+    resized.thumbnail(photo_size)
     random_name = secrets.token_hex(6)
     f_name, f_ext = os.path.splitext(form_photo.filename)
     photo_filename = f_name + random_name + f_ext
     photo_path = os.path.join(app.root_path, 'static/profile_photos', photo_filename)
-    form_photo.save(photo_path)
+    resized.save(photo_path)
     return photo_filename
 
 

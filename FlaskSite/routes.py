@@ -1,7 +1,7 @@
 from flask import render_template, flash, url_for, redirect, request
 from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm
 from FlaskSite.models import User, Post
-from FlaskSite import app, database, bcrypt
+from FlaskSite import app, database, bcrypt, redis
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets, os
 from PIL import Image

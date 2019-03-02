@@ -7,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
 
@@ -43,36 +41,68 @@
     </div>
 </div>
 
-<header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-nav fixed-top">
-        <div class="container">
-            <a class="navbar-brand mr-4" href="{{ url_for('home') }}">RedHotStore</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
-                    <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
-                </div>
-                <!-- Navbar Right Side -->
-                <div class="navbar-nav">
-                    {% if current_user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{{ url_for('profile') }}">My profile</a>
-                        <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
 
-                    {% else %}
-                        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-                        <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
-                    {% endif %}
+<nav class="navbar navbar-expand-md navbar-dark bg-nav sticky-top">
+    <a class="navbar-brand mr-4" href="{{ url_for('home') }}">RedHotStore</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+            aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggle">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-item nav-link" href="{{ url_for('home') }}">Домой</a></li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Одежда
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Свитеры</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Блузы и рубашки</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Платья</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Брюки</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Костюмы</a>
                 </div>
-            </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Аксессуары
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Сумки</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Кошельки</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Шарфы</a>
+                    <a class="dropdown-item" href="{{ url_for('home') }}">Головные уборы</a>
+                </div>
+            </li>
+
+            <li class="nav-item"><a class="nav-item nav-link" href="{{ url_for('about') }}">О нас</a></li>
+            <li class="nav-item ml-2">
+                <form class="form-inline" action="/action_page.php">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Поиск товара">
+                    <button class="btn btn-success" type="submit">Найти</button>
+                </form>
+            </li>
+        </ul>
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav">
+
+            {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="{{ url_for('profile') }}">Мой профиль</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Выйти</a>
+
+            {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('login') }}">Вход</a>
+                <a class="nav-item nav-link" href="{{ url_for('register') }}">Регистрация</a>
+            {% endif %}
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
+
+
 <main role="main" class="container">
     <div class="row">
+    {% block about %}{% endblock %}
         <div class="col-md-8">
             {% with messages = get_flashed_messages(with_categories=true ) %}
                 {% if messages %}
@@ -90,6 +120,8 @@
     </div>
 </main>
 
-
+<div class="jumbotron text-center" style="margin-bottom:0; margin-top: 10rem">
+  <p>Footer</p>
+</div>
 </body>
 </html>

@@ -1,5 +1,29 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1>MUDA MUDA!</h1>
-{% endblock content %}
+{% block about %}
+    <!-- Media middle -->
+    <div class="d-flex">
+        <img src={{ url_for('static', filename='profile_photos/default.jpg') }} class="align-self-center mr-3" >
+        <div >
+            <h1>MUDA MUDA!</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo eros, mattis quis congue placerat,
+                suscipit ac felis. Nunc tortor purus, interdum sed libero semper, iaculis vestibulum dolor. Nunc in
+                justo eget quam pretium finibus non eu turpis. Aenean viverra justo accumsan, tincidunt elit in,
+                scelerisque elit. Sed vulputate tortor nec sapien sodales rhoncus. Vivamus eros mauris, congue eleifend
+                orci quis, auctor varius arcu. Integer congue neque in tempor elementum. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Aliquam vitae eleifend nulla. Aliquam sodales in tellus at tempus. Praesent
+                rutrum, odio pharetra iaculis condimentum, diam enim bibendum libero, a porttitor nulla lorem a lectus.
+                Proin cursus, lectus non malesuada pulvinar, magna orci semper nisi, at elementum diam ante quis ex.
+                Mauris vel tortor ac nisl interdum tristique. Suspendisse a purus eget tortor ornare mattis et semper
+                enim. Sed pulvinar auctor mattis.
+
+                Ut convallis, orci at egestas maximus, libero ex tempor turpis, iaculis commodo sapien dui id diam.
+                Nullam non hendrerit eros. Nam vel luctus arcu. Proin in enim a leo cursus sagittis. In convallis porta
+                purus vitae lobortis. Etiam leo ante, pulvinar ut elementum a, condimentum sit amet massa. Suspendisse
+                ac tellus nec augue dictum eleifend. Donec feugiat nisi sed fermentum eleifend. Nulla nibh sapien,
+                semper id pellentesque eget, venenatis at nibh. Donec at eros eget ex sollicitudin euismod sed sit amet
+                sem. Curabitur eu dui nec magna placerat sollicitudin congue nec justo. Nulla interdum diam vitae
+                accumsan dignissim. Proin vel porttitor risus. Aenean rutrum dictum turpis quis elementum.</p>
+        </div>
+    </div>
+{% endblock about %}

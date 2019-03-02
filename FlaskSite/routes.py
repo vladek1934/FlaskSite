@@ -14,11 +14,71 @@ posts = [
         'date_posted': 'March 20, 2012'
     },
     {
-        'author': 'Caesar',
+        'author': 'Caesar2',
         'title': '2',
         'content': '200 tenge',
         'date_posted': 'january 20, 2018'
-    }
+    },
+{
+        'author': 'Caesar3',
+        'title': '3',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar4',
+        'title': '4',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar5',
+        'title': '5',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar6',
+        'title': '6',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar',
+        'title': '1',
+        'content': '100 tenge',
+        'date_posted': 'March 20, 2012'
+    },
+    {
+        'author': 'Caesar2',
+        'title': '2',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar3',
+        'title': '3',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar4',
+        'title': '4',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar5',
+        'title': '5',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
+{
+        'author': 'Caesar6',
+        'title': '6',
+        'content': '200 tenge',
+        'date_posted': 'january 20, 2018'
+    },
 ]
 
 

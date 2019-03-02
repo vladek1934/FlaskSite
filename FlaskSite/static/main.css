@@ -26,10 +26,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .content-section {
   background: #ffffff;
+  /*background-image:url(https://img.shopstyle-cdn.com/pim/4e/1f/4e1f8d2eb3a1e202231c1060b8989cbb_xlarge.jpg);*/
+  background-position:center;
+  background-size: cover;
+
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .article-title {
@@ -77,4 +82,12 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.h-scroll-container {
+  display: flex;
+  overflow-x: auto;
+}
+.h-scroll-container::-webkit-scrollbar {
+    display: none;
 }

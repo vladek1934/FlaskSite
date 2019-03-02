@@ -91,3 +91,31 @@ a.article-title:hover {
 .h-scroll-container::-webkit-scrollbar {
     display: none;
 }
+
+.arrow-button {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  z-index: 1;
+  top: 100px;
+
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+.arrow {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-right: 10px solid #000;
+}
+}
+.arrow-left {
+  left: -5px;
+}
+.arrow-right {
+  right: -5px;
+  transform: scaleX(-1);
+}

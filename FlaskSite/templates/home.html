@@ -4,7 +4,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-       function left(id) {
+       function left(id) {              // I'll move this later
           event.preventDefault();
           $(id).animate({
             scrollLeft: "+=150px"
@@ -20,40 +20,47 @@
     </script>
 
     <h1>New</h1>
-    <button onclick="right('#new-container')"></button>
-    <button onclick="left('#new-container')"></button>
-    <div id="new-container" class="h-scroll-container">
-        {% for post in posts %}
-            <article class="media content-section">
-                <div class="media-body">
-                    <div class="article-metadata">
-                        <a class="mr-2" href="#">{{ post.author }}</a>
-                        <small class="text-muted">{{ post.date_posted }}</small>
+
+    <div style="display: flex">
+        <button class="arrow-button arrow-left" onclick="right('#new-container')"><div class="arrow"></div></button>
+        <div id="new-container" class="h-scroll-container">
+
+            {% for post in posts %}
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="#">{{ post.author }}</a>
+                            <small class="text-muted">{{ post.date_posted }}</small>
+                        </div>
+                        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+                        <p class="article-content">{{ post.content }}</p>
                     </div>
-                    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-                    <p class="article-content">{{ post.content }}</p>
-                </div>
-            </article>
-        {% endfor %}
+                </article>
+            {% endfor %}
+        </div>
+        <button class="arrow-button arrow-right" onclick="left('#new-container')"><div class="arrow"></div></button>
     </div>
 
-    <h2>Hot</h2>
-    <button onclick="right('#hot-container')"></button>
-    <button onclick="left('#hot-container')"></button>
-    <div id="hot-container" class="h-scroll-container">
-        {% for post in posts %}
-            <article class="media content-section">
-                <div class="media-body">
-                    <div class="article-metadata">
-                        <a class="mr-2" href="#">{{ post.author }}</a>
-                        <small class="text-muted">{{ post.date_posted }}</small>
-                    </div>
-                    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-                    <p class="article-content">{{ post.content }}</p>
-                </div>
-            </article>
-        {% endfor %}
 
+    <h2>Hot</h2>
+    <div style="display: flex">
+        <button class="arrow-button arrow-left" onclick="right('#hot-container')"><div class="arrow"></div></button>
+        <div id="hot-container" class="h-scroll-container">
+
+            {% for post in posts %}
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="#">{{ post.author }}</a>
+                            <small class="text-muted">{{ post.date_posted }}</small>
+                        </div>
+                        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+        <button class="arrow-button arrow-right" onclick="left('#hot-container')"><div class="arrow"></div></button>
     </div>
 
 

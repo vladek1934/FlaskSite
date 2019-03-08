@@ -1,5 +1,5 @@
 from flask import render_template, flash, url_for, redirect, request
-from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm
+from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm, ItemForm
 from FlaskSite.models import User, Post
 from FlaskSite import app, database, bcrypt, redis
 from flask_login import login_user, logout_user, current_user, login_required
@@ -72,7 +72,7 @@ def logout():
 
 
 def save_photo(form_photo):
-    photo_size = (512,512)
+    photo_size = (512, 512)
     resized = Image.open(form_photo)
     resized.thumbnail(photo_size)
     random_name = secrets.token_hex(6)
@@ -103,3 +103,13 @@ def profile():
         prof_form.email.data = current_user.email
     image = url_for('static', filename='profile_photos/' + current_user.image_file)
     return render_template('profile.html', title='Profile', image_file=image, form=prof_form)
+
+
+@app.route("/items/new", methods=['GET', 'POST'])
+@login_required
+def new_item():
+    form = ItemForm()
+    if form.validate_on_submit():
+        flash('The item has been created', 'success')
+        return redirect(url_for('home'))
+    return render_template('new_item.html', title='New Item', form=form)

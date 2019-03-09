@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
-from wtforms import StringField, PasswordField, SubmitField, BooleanField , TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError, Email
 from FlaskSite.models import User
 from flask_login import current_user
@@ -54,8 +54,8 @@ class AlterAccountForm(FlaskForm):
             if user:
                 raise ValidationError('The email is already taken')
 
-class ItemForm(FlaskForm):
+
+class NewPostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    photo = FileField('Update profile photo', validators=[FileAllowed(['jpg', 'png'])])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Create new item')

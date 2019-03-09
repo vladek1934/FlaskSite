@@ -1,30 +1,15 @@
 from flask import render_template, flash, url_for, redirect, request
-from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm, ItemForm
+from FlaskSite.forms import RegForm, LoginForm, AlterAccountForm, NewPostForm
 from FlaskSite.models import User, Post
 from FlaskSite import app, database, bcrypt, redis
 from flask_login import login_user, logout_user, current_user, login_required
 import secrets, os
 from PIL import Image
 
-posts = [
-    {
-        'author': 'Caesar',
-        'title': '1',
-        'content': '100 tenge',
-        'date_posted': 'March 20, 2012'
-    },
-    {
-        'author': 'Caesar',
-        'title': '2',
-        'content': '200 tenge',
-        'date_posted': 'january 20, 2018'
-    }
-]
-
-
 @app.route('/')
 @app.route('/home')
 def home():
+    posts = Post.query.all()
     return render_template('home.html', title='Home', posts=posts)
 
 
@@ -105,11 +90,14 @@ def profile():
     return render_template('profile.html', title='Profile', image_file=image, form=prof_form)
 
 
-@app.route("/items/new", methods=['GET', 'POST'])
+@app.route("/posts/new", methods=['GET', 'POST'])
 @login_required
-def new_item():
-    form = ItemForm()
+def new_post():
+    form = NewPostForm()
     if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        database.session.add(post)
+        database.session.commit()
         flash('The item has been created', 'success')
         return redirect(url_for('home'))
     return render_template('new_item.html', title='New Item', form=form)

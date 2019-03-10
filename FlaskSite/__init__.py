@@ -11,7 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-redis = FlaskRedis(app)
+rediska = FlaskRedis(app)
+rediska.set('jojo', 'muda')
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'

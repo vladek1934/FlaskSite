@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_redis import Redis
+from flask_redis import FlaskRedis
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-redis = Redis(app)
+redis = FlaskRedis(app)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'

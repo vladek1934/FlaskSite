@@ -3,7 +3,8 @@
 {% block content %}
     {% for post in posts %}
         <article class="media content-section">
-         <img class="rounded-circle article-img" src="{{ url_for('static',filename='profile_photos/'+post.author.image_file)}}">
+            <img class="rounded-circle article-img"
+                 src="{{ url_for('static',filename='profile_photos/'+post.author.image_file) }}">
             <div class="media-body">
                 <div class="article-metadata">
 
@@ -15,5 +16,5 @@
             </div>
         </article>
     {% endfor %}
-    <div>{{ rediska.get('jojo') }}</div>
+
 {% endblock content %}

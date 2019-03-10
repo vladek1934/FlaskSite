@@ -6,16 +6,17 @@ from flask_login import login_user, logout_user, current_user, login_required
 import secrets, os
 from PIL import Image
 
+
 @app.route('/')
 @app.route('/home')
 def home():
     posts = Post.query.all()
-    return render_template('home.html', title='Home', posts=posts)
+    return render_template('home.html', title='Home', posts=posts, rediska=rediska)
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html', title='About')
+    return render_template('about.html', title='About', rediska=rediska)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -28,9 +29,10 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         database.session.add(user)
         database.session.commit()
+        rediska.incr('Accounts created today')
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form, rediska=rediska)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -44,10 +46,11 @@ def login():
             login_user(user, remember=form.rememberpass.data)
             next_page = request.args.get('next')
             flash('Welcome', 'success')
+            rediska.incr('Logins today')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login failed', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', title='Login', form=form, rediska=rediska)
 
 
 @app.route('/logout')
@@ -87,7 +90,7 @@ def profile():
         prof_form.username.data = current_user.username
         prof_form.email.data = current_user.email
     image = url_for('static', filename='profile_photos/' + current_user.image_file)
-    return render_template('profile.html', title='Profile', image_file=image, form=prof_form)
+    return render_template('profile.html', title='Profile', image_file=image, form=prof_form, rediska=rediska)
 
 
 @app.route("/posts/new", methods=['GET', 'POST'])
@@ -98,6 +101,7 @@ def new_post():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         database.session.add(post)
         database.session.commit()
+        rediska.incr('Added posts today')
         flash('The item has been created', 'success')
         return redirect(url_for('home'))
-    return render_template('new_item.html', title='New Item', form=form)
+    return render_template('new_item.html', title='New Item', form=form, rediska=rediska)

@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="jumbotron">
-    <div class="container text-center">
+    <div class="container text-center ">
         <h1>Online Store</h1>
         <p>Mission, Vission & Values</p>
     </div>
@@ -104,7 +104,7 @@
 
 <main role="main" class="container">
     <div class="row">
-    {% block about %}{% endblock %}
+        {% block about %}{% endblock %}
         <div class="col-md-8">
             {% with messages = get_flashed_messages(with_categories=true ) %}
                 {% if messages %}
@@ -123,7 +123,12 @@
 </main>
 
 <div class="jumbotron text-center" style="margin-bottom:0; margin-top: 10rem">
-  <p>Footer</p>
+    <div>
+        <p>Accounts created today: {{ rediska.get('Accounts created today').decode('utf-8') }}</p>
+        <p>Logins today {{ rediska.get('Logins today').decode('utf-8') }}</p>
+        <p>Added posts today {{ rediska.get('Added posts today').decode('utf-8') }}</p>
+        <p>Last restart of the site {{ rediska.get('Last restart of the site').decode('utf-8') }}</p>
+    </div>
 </div>
 </body>
 </html>
